@@ -1,0 +1,88 @@
+import json
+import requests
+from bs4 import BeautifulSoup
+data_url = 'http://www.imdb.com/search/title?at=0&sort=num_votes,desc&start=1&title_type=feature&year=1950,2012'
+
+r = requests.get(data_url)
+r.url
+r.json
+base_url = 'http://www.imdb.com/search/title'
+
+# construct the parameter arguments
+params = dict(params='num_votes,desc', start=1, title_type='feature', year='2008,2012')
+
+# requests.get(url, params=None, **kwargs) 
+r = requests.get(base_url, params=params)
+
+r.url
+for movie in bs.findAll('td', 'title')[:10]:
+    title = movie.find('a').contents[0]
+    genres = movie.find('span', 'genre').findAll('a')
+    genres = [g.contents[0] for g in genres]
+    runtime = movie.find('span', 'runtime').contents[0]
+    rating = movie.find('span', 'value').contents[0]
+    print(title, genres, runtime, rating)
+movie_soup = BeautifulSoup(r.content, 'lxml')
+site_url = "http://www.crummy.com/software/BeautifulSoup/"
+
+r = requests.get(site_url)
+
+soup = BeautifulSoup(r.text, 'lxml')
+# check if the word 'Alice' is on the page.
+'Alice' in soup
+#'Leonard Richardson' in soup
+# soup ONLY accept TAGS
+soup.findAll('alien video games')
+# FindAll returns a list of all appearance of the tag
+links = soup.findAll('a')
+
+links[:7]
+
+# Get all the links (both internal bookmarks and external)  # Get all 
+url_nlinks = [lnx.get('href') for lnx in soup.findAll('a')]
+
+# Get ONLY external links
+# List comprehensions: 
+# external_links = [lnx for lnx in url_nlinks if (lnx != None) and ('http' in lnx)]
+
+# url_nlinks[:5]
+
+external_links = []
+for lnx in url_nlinks:
+    if (lnx is not None) and lnx.startswith('http'):
+        external_links.append(lnx)
+
+
+len(external_links)
+
+'http' in 'http://www.crummy.com/software/BeautifulSoup/'
+
+# redifining `s` without any line breaks
+s = """<!DOCTYPE html><html><head><title>This is a title</title></head><body><h3> Test </h3>
+<p>Hello world!</p></body></html>"""
+
+# Ge tbs4 object
+tree = BeautifulSoup(s, 'lxml')
+tree
+
+# Get HTML root node
+root_node = tree.html
+root_node
+
+# Get head from root using contents
+head = tree.contents[0]
+head
+
+# Get body from root
+body = root_node.contents[1]
+body
+
+
+# or , directly access body
+tree.body
+
+soup.findAll('h3')[0].contents
+
+hall_of_fame = soup.findAll('ul')
+
+hall_of_fame[0]
